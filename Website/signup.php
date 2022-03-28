@@ -32,12 +32,12 @@ else if (strlen($password) < 8)
 $hash = password_hash($password, PASSWORD_DEFAULT);
 
 // Code for connecting to localhost
-$dbcreds = new mysqli('localhost', 'root', 'RecycleMoreDB');
+$dbcreds = new mysqli('localhost', 'root', ,'', 'recylcemoredb');
 
 // Insertion code for DB
 if($stmt = $dbcreds -> prepare("INSERT INTO `users` (`email`, `password`, `address`, `city`, `postcode`) VALUES (?, ?, ?, ?, ?)"))
 {
-  
+
 //Code to format data for DB insertion
 $stmt -> bind_param("sssss", $email, $hash, $address, $city, $postcode);
 $stmt -> execute();

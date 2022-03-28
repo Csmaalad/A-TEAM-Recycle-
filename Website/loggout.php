@@ -1,5 +1,5 @@
 <?php
 session_start();
 unset($_SESSION['uemail']);
-header("location:index.html");
+header("location:Website/index.html");
 ?>
