@@ -7,8 +7,8 @@ $address = $_POST['address']
 $city = $_POST['city']
 $postcode = $_POST['postcode']
 
-// Information validation check
-if(strlen($email) < 1 || strlen($email) > 100)
+// Information validation check && REGEX character check for sql injection prevention
+if(strlen($email) < 1 || strlen($email) > 100 || preg_match("/[^A-Za-z\'-]/", $email)
 {
   if (strlen($email) < 1)
     echo "Email length too short";
@@ -21,7 +21,7 @@ if(strlen($email) < 1 || strlen($email) > 100)
   echo "Invalid email"
   exit();
 }
-else if (strlen($password) < 8)
+else if (strlen($password) < 8 || preg_match("/[^A-Za-z\'-]/", $password))
 {
   echo "Password length too short";
   exit();
@@ -53,5 +53,6 @@ if($stmt = $dbcreds -> prepare("SELECT `id`, `password` FROM `users` WHERE BINAR
   }
   }
   $stmt -> close();
+  header("location:Website/index.html");
 }
 ?>
