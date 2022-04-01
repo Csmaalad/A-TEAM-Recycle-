@@ -150,10 +150,6 @@ if(isset($_POST["submit"])){
           <button type="button" class="btn btn-outline-light">LogOut</button>
         </a>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
       </div>
     </div>
   </nav>
@@ -235,7 +231,7 @@ if(isset($_POST["submit"])){
       <a href="#demo3" data-toggle="collapse">
         <img src="https://static.independent.co.uk/2021/03/16/14/world%20recycling%20day.jpg?quality=75&width=1200&auto=webp" class="img-circle person" alt="Random Name" width="255" height="255">
       </a>
-      
+
     </div>
   </div>
 </div>
