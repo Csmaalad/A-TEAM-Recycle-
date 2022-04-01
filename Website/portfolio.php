@@ -1,20 +1,29 @@
 <?php
+#Removes X-Powered by vulnerability!
+header_remove("X-Powered-By"); ?>
+<?php
+#Connection to DB
 require 'connection.php';
 if(isset($_POST["submit"])){
   $name = $_POST["name"];
+  #No image selected then display script
   if($_FILES["image"]["error"] == 4){
     echo
     "<script> alert('Image Does Not Exist'); </script>"
     ;
   }
   else{
+    #All variables must have matching parameters to upload image
     $fileName = $_FILES["image"]["name"];
     $fileSize = $_FILES["image"]["size"];
     $tmpName = $_FILES["image"]["tmp_name"];
-
+    #Select only selected file extensions.
     $validImageExtension = ['jpg', 'jpeg', 'png'];
+    #Create an array of strings
     $imageExtension = explode('.', $fileName);
+    #Takes string paramters
     $imageExtension = strtolower(end($imageExtension));
+    #Stopping user uploading invalid file extensions
     if ( !in_array($imageExtension, $validImageExtension) ){
       echo
       "
@@ -23,6 +32,7 @@ if(isset($_POST["submit"])){
       </script>
       ";
     }
+    #If file size is greather than '100000' then show script
     else if($fileSize > 1000000){
       echo
       "
@@ -34,10 +44,12 @@ if(isset($_POST["submit"])){
     else{
       $newImageName = uniqid();
       $newImageName .= '.' . $imageExtension;
-
+      //Move new image thats been uploaded into local 'img' folder
       move_uploaded_file($tmpName, 'img/' . $newImageName);
+      #Insert image and name if all parameters have been met
       $query = "INSERT INTO tb_upload VALUES('', '$name', '$newImageName')";
       mysqli_query($conn, $query);
+      #Successfull script shown
       echo
       "
       <script>
@@ -150,6 +162,10 @@ if(isset($_POST["submit"])){
           <button type="button" class="btn btn-outline-light">LogOut</button>
         </a>
         </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-light" type="submit">Search</button>
+        </form>
       </div>
     </div>
   </nav>
@@ -236,18 +252,23 @@ if(isset($_POST["submit"])){
   </div>
 </div>
 
+<!--Upload Users Image File-->
 <div class="Uploadf">
 <form class="" action="" method="post" autocomplete="off" enctype="multipart/form-data">
   <label for="name">Name : </label>
   <br>
+  <!--User inputs Name-->
   <input type="text" name="name" id = "name" required value="">
   <br>
   <label for="image">Image : </label>
   <br>
+
+  <!--Input should only be listed files. Any other file extensions will be rejected -->
   <input type="file" name="image" id = "image" accept=".jpg, .jpeg, .png" value=""> <br> <br>
   <button type = "submit" name = "submit">Submit</button>
 </form>
 <br>
+<!--User Link to see there uploaded photos on an external listed page-->
 <a href="data.php">Click Here To See Uploaded Images!</a>
 </div>
 <br>
