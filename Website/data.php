@@ -15,7 +15,7 @@ require 'connection.php';
       margin-left: auto;
       margin-right: auto;
     }
-  
+
     </style>
 </head>
 <body>
@@ -55,13 +55,16 @@ require 'connection.php';
         <td>Image</td>
       </tr>
       <?php
+      #Select data from DB
       $i = 1;
       $rows = mysqli_query($conn, "SELECT * FROM tb_upload ORDER BY id DESC")
       ?>
-
+      <!-- PHP for table -->
       <?php foreach ($rows as $row) : ?>
       <tr>
-        <td><?php echo $i++; ?></td>
+        <td>
+          <?php
+           echo $i++; ?></td>
         <td><?php echo $row["name"]; ?></td>
         <td> <img src="img/<?php echo $row["image"]; ?>" width = 200 title="<?php echo $row['image']; ?>"> </td>
       </tr>
